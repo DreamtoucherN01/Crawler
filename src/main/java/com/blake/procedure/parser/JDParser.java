@@ -1,9 +1,18 @@
 package com.blake.procedure.parser;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.FormElement;
+import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
+
+import com.blake.util.MemoryHolder;
 
 public class JDParser {
 
@@ -38,18 +47,31 @@ public class JDParser {
     }
     
     
-    public String getItemId(){
+    public void getItemId() {
     	
-        String itemId="";
+        ListIterator<Element> it = null;
         try{
         	
-            itemId=doc.select("#pinfo .p-name a").first().attr("href");
-            itemId=itemId.replaceAll("(//book.jd.com/)|(\\.html)", "");
+            it = doc.select(".list-item").listIterator();
+            while(it.hasNext()) {
+            	
+            	String itemId = it.next().select(".p-comm a").attr("href");
+            	if(itemId.contains("item")) {
+                	
+                	itemId = itemId.replaceAll("(//item.jd.com/)|(\\.html)", "");
+                } else if(itemId.contains("book")) {
+                	
+                	itemId = itemId.replaceAll("(//book.jd.com/)|(\\.html)", "");
+                } 
+            	if(!StringUtils.isBlank(itemId)) {
+                	
+                	MemoryHolder.urlToBeDealed.add(itemId);
+                }
+            }
             
-        }catch(Exception e){
+        } catch(Exception e) {
         	
         	e.printStackTrace();
         }
-        return itemId;
     }
 }

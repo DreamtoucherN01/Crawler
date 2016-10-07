@@ -7,8 +7,10 @@
  */
 package com.blake.entry;
 
+import com.blake.procedure.itemgetter.Item;
 import com.blake.procedure.parser.JDParser;
 import com.blake.util.Constants;
+import com.blake.util.MemoryHolder;
 import com.blake.util.SpiderUtils;
 
 public class Entry{
@@ -23,9 +25,15 @@ public class Entry{
 	 */
 	public static void main(String args[]) {
 		
-		String content = SpiderUtils.downLoad(Constants.testUrl.replaceAll("[?]", "1523682"));
-		
-		JDParser jdParser = new JDParser(content);
-		System.out.println(jdParser.getItemId());
+		for(int i = 1; i <= 500; i++) {
+			
+			for(int j = 1; j <= 10; j++) {
+				
+				new Item().fetchItem(i, j);
+				System.out.println(MemoryHolder.urlToBeDealed.size());
+				
+			}
+		}
+
 	}
 }
