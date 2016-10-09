@@ -7,6 +7,8 @@
  */
 package com.blake.entry;
 
+import java.util.Iterator;
+
 import com.blake.procedure.itemgetter.Item;
 import com.blake.procedure.parser.JDParser;
 import com.blake.util.Constants;
@@ -31,8 +33,14 @@ public class Entry{
 				
 				new Item().fetchItem(i, j);
 				System.out.println(MemoryHolder.urlToBeDealed.size());
-				
 			}
+		}
+		
+		Iterator<String> it = MemoryHolder.urlToBeDealed.iterator();
+		while(it.hasNext()) {
+			
+			String item = it.next();
+			
 		}
 
 	}

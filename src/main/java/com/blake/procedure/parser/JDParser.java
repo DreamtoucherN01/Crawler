@@ -55,7 +55,8 @@ public class JDParser {
             it = doc.select(".list-item").listIterator();
             while(it.hasNext()) {
             	
-            	String itemId = it.next().select(".p-comm a").attr("href");
+            	Element next = it.next();
+            	String itemId = next.select(".p-comm a").attr("href");
             	if(itemId.contains("item")) {
                 	
                 	itemId = itemId.replaceAll("(//item.jd.com/)|(\\.html)", "");
